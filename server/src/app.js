@@ -22,6 +22,10 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Routes
+app.get('/', (req, res) => {
+  res.json({ message: 'AI Appointment Booking API is running', status: 'healthy' });
+});
+
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/chat', chatRoutes);
 
