@@ -47,11 +47,23 @@ class AIService {
     }
 
     try {
+      // 1. Format history for Groq (limit to last 10 messages)
+      const formattedHistory = chatHistory
+        .slice(-10)
+        .map(msg => ({
+          role: msg.role === 'ai' ? 'assistant' : 'user',
+          content: msg.content
+        }));
+
+      // 2. Build messages array
+      const messages = [
+        { role: "system", content: this.systemPrompt },
+        ...formattedHistory,
+        { role: "user", content: userMessage }
+      ];
+
       const completion = await this.groq.chat.completions.create({
-        messages: [
-          { role: "system", content: this.systemPrompt },
-          { role: "user", content: userMessage }
-        ],
+        messages,
         model: this.model,
         response_format: { type: "json_object" }
       });
