@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: ai-appointment-system
+    env: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm run render-start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+        placeholder: "Your MongoDB Connection String"
+      - key: GEMINI_API_KEY
+        sync: false
+        placeholder: "Your Google Gemini API Key"
+      - key: GROQ_API_KEY
+        sync: false
+        placeholder: "Your Groq API Key"
+      - key: PORT
+        value: 5000

@@ -6,6 +6,8 @@ const appointmentRoutes = require('./routes/appointment.routes');
 const chatRoutes = require('./routes/chat.routes');
 const errorHandler = require('./middleware/error');
 
+const path = require('path');
+
 const app = express();
 
 // Middleware
@@ -28,6 +30,15 @@ app.get('/', (req, res) => {
 
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/chat', chatRoutes);
+
+// Static File Serving (Production)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../client/dist')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../../client', 'dist', 'index.html'));
+  });
+}
 
 // Error Handling
 app.use(errorHandler);
