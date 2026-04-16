@@ -35,7 +35,8 @@ app.use('/api/chat', chatRoutes);
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-  app.get('/:path*', (req, res) => {
+  // Use a Regex literal to avoid Express 5 path-to-regexp errors
+  app.get(/^(?!\/api).+/, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../../client', 'dist', 'index.html'));
   });
 }
