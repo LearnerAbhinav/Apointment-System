@@ -24,7 +24,7 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/api/status', (req, res) => {
   res.json({ message: 'AI Appointment Booking API is running', status: 'healthy' });
 });
 
