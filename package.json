@@ -8,10 +8,10 @@
     "server": "npm run start --prefix server",
     "client": "npm run dev --prefix client",
     "install-all": "npm install && npm install --prefix server && npm install --prefix client",
-    "build": "npm install && npm install --prefix server && npm install --prefix client && npm run build --prefix client",
+    "build": "npm install && npm install --prefix server && npm install --include=dev --prefix client && npm run build --prefix client",
     "render-start": "npm run start --prefix server"
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^8.2.2"
   }
 }
